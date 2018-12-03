@@ -1,9 +1,11 @@
 const path = require('path')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const merge = require('webpack-merge')
+const baseConfig = require('./webpack.base')
 const isDev = process.env.NODE_ENV === 'development'
 
-config={
+config=merge(baseConfig,{
     mode:'development',
     entry:{
         app:path.join(__dirname, '../client/index.js')
@@ -13,21 +15,12 @@ config={
         path: path.join(__dirname,'../dist'),
         publicPath: "/public"
     },
-    module:{
-        rules:[
-            {
-                test:/\.jsx?/,
-                loader:'babel-loader',
-                exclude:/node_modules/
-            }
-        ]
-    },
     plugins:[
         new htmlWebpackPlugin({
             template:path.join(__dirname, '../client/template.html')
         })
     ]
-}
+})
 
 if(isDev){
         config.devtool = 'eval-source-map',
