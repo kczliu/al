@@ -23,7 +23,7 @@ config=merge(baseConfig,{
 })
 
 if(isDev){
-        config.devtool = 'eval-source-map',
+        config.devtool = '#cheap-module- eval-source-map',
         config.entry={
             app:[
                 'react-hot-loader/patch',

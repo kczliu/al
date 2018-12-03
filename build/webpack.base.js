@@ -8,17 +8,26 @@ config={
                 exclude:/node_modules/
             },
             {
-                test:/\.css/,
-                loader:['style-loader','css-loader']
-            },
-            {
                 test:/\.(ttf|woff|svg)/,
                 loader:'url-loader'
-            }
+            },
+            {
+                test:/\.css/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+
+                        }
+                    }
+                ]
+            },
+
         ]
     },
     resolve:{
-      extensions:['.js']
+      extensions:['.js','.css']
     }
 }
 
