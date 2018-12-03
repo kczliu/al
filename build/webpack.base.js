@@ -8,9 +8,17 @@ config={
                 exclude:/node_modules/
             },
             {
-                test
+                test:/\.css/,
+                loader:['style-loader','css-loader']
+            },
+            {
+                test:/\.(ttf|woff|svg)/,
+                loader:'url-loader'
             }
         ]
+    },
+    resolve:{
+      extensions:['.js']
     }
 }
 

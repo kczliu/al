@@ -42,6 +42,14 @@ if(isDev){
             publicPath: '/public',
             historyApiFallback:{
                 index:'/public/index.html'
+            },
+            proxy:{
+                '/v1':{
+                    target:'https://cnodejs.org/api/v1/',
+                    changeOrigin:true,
+                    secure:false
+                }
+
             }
         }
         config.plugins.push(new webpack.HotModuleReplacementPlugin())
