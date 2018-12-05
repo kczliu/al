@@ -2,13 +2,16 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import App from './app.js'
 import {AppContainer}  from 'react-hot-loader'
-
+import store from './store'
+import {Provider} from 'react-redux'
 const root = document.getElementById('root')
 
 const render =Component =>{
     ReactDOM.hydrate(
         <AppContainer>
-            <Component></Component>
+            <Provider store={store}>
+                <Component></Component>
+            </Provider>
         </AppContainer>
         ,root
     )

@@ -13,7 +13,7 @@ config=merge(baseConfig,{
     output: {
         filename: "[name]-[hash:4].js",
         path: path.join(__dirname,'../dist'),
-        publicPath: "/public"
+        publicPath: ""
     },
     plugins:[
         new htmlWebpackPlugin({
@@ -32,14 +32,14 @@ if(isDev){
         }
         config.devServer={
             host:'0.0.0.0',
-            port:'8888',
+            port:'8080',
             contentBase:path.join(__dirname,'../dist'),
             overlay:{
                 errors:true
             },
             inline:true,
             hot:true,
-            publicPath: '/public',
+            publicPath: '',
             historyApiFallback:{
                 index:'/public/index.html'
             },

@@ -1,7 +1,10 @@
 import axios from 'axios'
 import {Message} from 'element-react'
-const baseUrl = 'http://106.75.11.152/api/';
-axios.interceptors.request.use(req=>{
+//const baseUrl = 'http://106.75.11.152/api/';
+
+const baseURL ='http://106.75.79.162:8888/advt-manager-service/'  //java接口
+
+/*axios.interceptors.request.use(req=>{
     req.url = `${baseUrl}${req.url}`;
     if(req.data){
         req.data = Object.assign(req.data,{
@@ -16,17 +19,24 @@ axios.interceptors.request.use(req=>{
 })
 
 axios.interceptors.response.use(res => {
-    if (res && res.data && res.data.status==200 || res.data.status == 0) {
+    if (res && res.data && res.data.status == 200 || res.data.status == 0) {
         return res.data //rep.data
-    }else if (res && ['1','2','3','4','5'].indexOf(res.data.status)>-1){
-       // store.commit(types.SET_TOKEN,'');
+    } else if (res && ['1', '2', '3', '4', '5'].indexOf(res.data.status) > -1) {
+        // store.commit(types.SET_TOKEN,'');
 
         Message.error('登录过期，请重新登录');
         window.location.hash = '#/login'
-    } else{
+    } else {
         Message.error(res.data.msg)
         return res.data
     }
+})*/
+
+
+axios.interceptors.request.use(req=>{
+    req.url = `${baseURL}${req.url}`
+    return req
+})
 
 export default axios
 
