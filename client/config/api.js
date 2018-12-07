@@ -3,7 +3,7 @@ import {Message} from 'element-react'
 //const baseUrl = 'http://106.75.11.152/api/';
 
 const baseURL ='http://106.75.79.162:8888/advt-manager-service/'  //java接口
-
+//const baseURL ='http://172.16.50.221:9990/api/'
 /*axios.interceptors.request.use(req=>{
     req.url = `${baseUrl}${req.url}`;
     if(req.data){
@@ -35,8 +35,20 @@ axios.interceptors.response.use(res => {
 
 axios.interceptors.request.use(req=>{
     req.url = `${baseURL}${req.url}`
+
     return req
 })
-
+axios.interceptors.response.use(res => {
+    if (res && res.data && res.data.status == 200 || res.data.status == 0) {
+        return res.data //rep.data
+    } else if (res && ['1', '2', '3', '4', '5'].indexOf(res.data.status) > -1) {
+        // store.commit(types.SET_TOKEN,'');
+        Message.error('登录过期，请重新登录');
+        window.location.hash = '#/login'
+    } else {
+        Message.error(res.data.msg)
+        return res.data
+    }
+})
 export default axios
 

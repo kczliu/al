@@ -40,9 +40,7 @@ if(isDev){
             inline:true,
             hot:true,
             publicPath: '',
-            historyApiFallback:{
-                index:'/public/index.html'
-            },
+            historyApiFallback:true,
             proxy:{
                 '/v1':{
                     target:'https://cnodejs.org/api/v1/',

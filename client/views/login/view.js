@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import './style.css'
-import {Form,Input,Button} from 'element-react'
+import {Form,Input,Button,Message} from 'element-react'
 import axios from '../../config/api'
-
+import * as api from '../../config'
+import {connect} from 'react-redux'
+import {set_token} from './action'
+import {withRouter} from 'react-router-dom'
 
 class View extends Component {
-    constructor(props) {
-        super(props);
+    constructor(props,context) {
+        super(props,context);
         this.state = {
             form: {
                 username: '',
@@ -32,27 +35,35 @@ class View extends Component {
 
     submitForm=(e)=> {
         e.preventDefault();
-
+    /*    this.props.history.push({
+            pathname:'/test',
+            search:'?money=30000',
+            hash:'#success',
+            state:{
+                formDatabord:true
+            }});*/
         this.refs.form.validate((valid) => {
             if (valid && !this.state.loading) {
                 this.setState({
                     loading:true
                 })
                 let params = this.state.form
-                axios.post('login',params)
+                api.login(params)
                     .then(res=>{
-                       // this.state.loading = false
-                        console.log(res)
-                       /* if (res && res.status == '200' && res.token) {
-                            localStorage.setItem('ms_username',this.ruleForm.username)
-                            this[types.SET_TOKEN](res.token);
-                            this.$message.success('登录成功')
+                        this.setState({
+                            loading:false
+                        })
+                      if (res && res.status == '200' && res.token) {
+                            localStorage.setItem('ms_username',this.state.form.username)
+                            //this[types.SET_TOKEN](res.token);
+                          this.props.setToken(res.data.token)
+                            Message.success('登录成功')
                             this.$router.push({
                                 name: 'index'
                             })
                         }else{
-                            this.$message.error('用户名密码错误，请重新输入')
-                        }*/
+                            Message.error('用户名密码错误，请重新输入')
+                        }
                     })
             } else {
                 console.log('error submit!!');
@@ -83,4 +94,14 @@ class View extends Component {
 
     }
 }
-export default View
+
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        setToken:(token)=>{
+            dispatch(set_token(token))
+        }
+    }
+}
+
+
+export default withRouter(connect(null,mapDispatchToProps)(View))

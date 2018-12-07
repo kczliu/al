@@ -4,13 +4,16 @@ import App from './app.js'
 import {AppContainer}  from 'react-hot-loader'
 import store from './store'
 import {Provider} from 'react-redux'
+import {HashRouter as Router} from 'react-router-dom'
 const root = document.getElementById('root')
 
 const render =Component =>{
     ReactDOM.hydrate(
         <AppContainer>
             <Provider store={store}>
-                <Component></Component>
+                <Router>
+                    <Component></Component>
+                </Router>
             </Provider>
         </AppContainer>
         ,root
